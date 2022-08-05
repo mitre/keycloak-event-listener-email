@@ -1,7 +1,7 @@
 # Registration Event Listener
 
 This is a custom event listener for Keycloak events. 
-Its goal is to notify an admin about new user registrations via email.
+Its goal is to notify an admin about Keycloak operations (admin or user events) via email.
 
 ## How to build the artifact?
 
@@ -9,16 +9,10 @@ Its goal is to notify an admin about new user registrations via email.
 mvn clean install
 ```
 
-## How to build the artifact with docker?
-
-```sh
-docker run --rm maven:3-openjdk-11 mvn clean install
-```
-
 ## How to add the jar in Keycloak?
 
-Copy the jar in the target folder to the `/opt/jboss/keycloak/standalone/deployments/` folder.
-Or when using Docker mount the file `./custom-event-listener-0.0.1-SNAPSHOT.jar:/opt/jboss/keycloak/standalone/deployments/custom-event-listener-0.0.1-SNAPSHOT.jar`
+Copy the jar in the target folder to the `/providers` folder.
+
 
 ## How to configure the event listener in Keycloak?
 
@@ -36,5 +30,5 @@ Set the event listener
 After you have setup everything and configured the listener do the following:
 
 1. Open the web interface of Mailhog at http://localhost:8085
-2. Register a new user on keycloak
+2. Register a new user on keycloak or perform other operations that a event listener is listening on. 
 3. Go to Mailhog and check that it catched a mail for the admin
