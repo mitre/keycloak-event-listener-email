@@ -33,30 +33,19 @@ public class PasswordMinTimePolicyProvider implements PasswordPolicyProvider {
     @Override
     public PolicyError validate(RealmModel realm, UserModel user, String password) {
 
-        logger.info("---------------validate called-------------------");
         PasswordCredentialProvider passwordCredentialProvider = new PasswordCredentialProvider(session);
         PasswordCredentialModel passwordCredentialModel = passwordCredentialProvider.getPassword(realm, user);
 
-        logger.info("-----------------credential created time---------------");
         long createdTime=passwordCredentialModel.getCreatedDate();
-        logger.info(createdTime);
 
-        logger.info("-----------------current time---------------");
         long currentTime = Time.currentTimeMillis();
-        logger.info(currentTime);
 
-        logger.info("-----------------elapsed time---------------");
         long timeElapsed= currentTime-createdTime;
-        logger.info(timeElapsed);
 
         PasswordPolicy policy = session.getContext().getRealm().getPasswordPolicy();
         int passwordMinLifeValue = policy.getPolicyConfig(PasswordMinTimePolicyProviderFactory.MINIMAL_PASSWORD_LIFE_ID);
-        logger.info("----------------Configured Minimum Life Time (in hours)------------------");
-        logger.info(passwordMinLifeValue);
 
-        logger.info("------------Configured Minimum Life Time (in milliseconds)");
         long passwordMinLifeValueInMillis = TimeUnit.DAYS.toMillis(passwordMinLifeValue);
-        logger.info(passwordMinLifeValueInMillis);
 
         if(passwordMinLifeValueInMillis<=timeElapsed){
             return null;
