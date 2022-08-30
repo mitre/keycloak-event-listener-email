@@ -23,7 +23,7 @@ jobs:
 
       - name: Build Maven project
         run: |
-          mvn -B package --file pom.xml -Dmaven.test.skip
+          mvn -B package --file 'PasswordMinTimePolicy/pom.xml' -Dmaven.test.skip
           mkdir staging && cp target/*.jar staging
       - name: Set up a cache for Maven
         uses: actions/cache@v2
