@@ -11,7 +11,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.keycloak.admin.client.Keycloak;
 import javax.ws.rs.core.Response;
 import java.io.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class PasswordMinTimePolicyTest{
 
@@ -19,11 +19,13 @@ public class PasswordMinTimePolicyTest{
     private static final String CLIENT="admin-cli";
     private static ClientRepresentation clientBeforeChanges;
     private static final String TEST_USER="test-user";
+    
     @BeforeAll
-    public static void initRealmAndUser()throws IOException{
+    public static void initRealmForTest()throws IOException{
         Keycloak keycloak=Keycloak.getInstance(KEYCLAOK_URL,"master","admin","admin",CLIENT);
         clientBeforeChanges=keycloak.realms().realm("master").clients().findByClientId(CLIENT).get(0);
         createTestUser("admin","admin","master",TEST_USER,"passwo1rd");
+        setPasswordPolicy("digits");
     }
     @AfterAll
     public static void resetRealm(){
@@ -33,26 +35,35 @@ public class PasswordMinTimePolicyTest{
         if(clientBeforeChanges != null){
             keycloak.realms().realm("master").clients().get(clientBeforeChanges.getId()).update(clientBeforeChanges);
         }
-
     }
     
 
 
     @Test
-    void tempTest() throws IOException{
-        Keycloak keycloak = Keycloak.getInstance(KEYCLAOK_URL,"master","admin","admin",CLIENT);
+    void policyPassTest() throws IOException{
+       //This test assesses if password policy passes a password when password complies with policy
+        try {
+            //This password meets password policy, update should be successful
+            resetPassword("admin", "admin", "master", "pass1Word"); 
+        } catch (Exception e) {
+            fail("Password met password policy. There's an error in updating passowrd");
+        }
 
-        setPasswordPolicy("digits");
-        
-        assertEquals(keycloak.realms().realm("master").toRepresentation().getPasswordPolicy(),"digits");
-        resetPassword("admin", "admin", "master", "pass1Word");
-
-
+    }
+    @Test
+    void policyFailTest() throws IOException{
+        //This test assesses if password policy fails a password when password does not comply with policy
+        try {
+            resetPassword("admin", "admin", "master", "password");
+            // If an exception does not occur, the password policy is not enforced correctly.
+            fail("An exception should occur. Password does not meet password policy");
+        } catch (Exception e) {
+        }
 
     }
 
 
-    private void setPasswordPolicy (String policy){
+    private static void setPasswordPolicy (String policy){
         Keycloak keycloak = Keycloak.getInstance(KEYCLAOK_URL,"master","admin","admin",CLIENT);
         RealmRepresentation realmRepresentation = keycloak.realms().realm("master").toRepresentation();
         realmRepresentation.setPasswordPolicy(policy);
