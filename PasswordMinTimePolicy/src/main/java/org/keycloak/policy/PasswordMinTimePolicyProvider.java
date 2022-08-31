@@ -27,7 +27,9 @@ public class PasswordMinTimePolicyProvider implements PasswordPolicyProvider {
 
     @Override
     public PolicyError validate(String username, String password) {
-        return null;
+        RealmModel realm = session.getContext().getRealm();
+        UserModel user = session.users().getUserByUsername(realm, username);
+        return validate(realm, user, password);
     }
 
     @Override
