@@ -27,10 +27,11 @@ jobs:
 
       - name: Pull Keycloak with Docker
         run: |
-          docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak start-dev
+          docker pull quay.io/keycloak/keycloak
+          docker run quay.io/keycloak/keycloak
       - name: Docker processes
         run: |
-          dockerContainerID=`docker ps -q`
+          dockerContainerID=`docker ps -a -q`
           docker cp PasswordMinTimePolicy/target/*.jar dockerContainerID:opt/keycloak/providers
           docker restart dockerContainerID
       
