@@ -1,6 +1,5 @@
 package org.keycloak.policy;
 
-import org.jboss.logging.Logger;
 import org.keycloak.common.util.Time;
 import org.keycloak.credential.PasswordCredentialProvider;
 import org.keycloak.models.KeycloakSession;
@@ -16,8 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PasswordMinTimePolicyProvider implements PasswordPolicyProvider {
 
-    private static final Logger logger = Logger.getLogger(HistoryPasswordPolicyProvider.class);
-    private static final String ERROR_MESSAGE = "invalidPasswordMinimumLengthMessage";
+    private static final String ERROR_MESSAGE = "invalidPasswordMinimumLifeMessage";
 
     private KeycloakSession session;
 
@@ -38,16 +36,22 @@ public class PasswordMinTimePolicyProvider implements PasswordPolicyProvider {
         PasswordCredentialProvider passwordCredentialProvider = new PasswordCredentialProvider(session);
         PasswordCredentialModel passwordCredentialModel = passwordCredentialProvider.getPassword(realm, user);
 
+        if(passwordCredentialModel==null){
+            return null;
+        }
+
         long createdTime=passwordCredentialModel.getCreatedDate();
 
         long currentTime = Time.currentTimeMillis();
 
         long timeElapsed= currentTime-createdTime;
 
+
         PasswordPolicy policy = session.getContext().getRealm().getPasswordPolicy();
         int passwordMinLifeValue = policy.getPolicyConfig(PasswordMinTimePolicyProviderFactory.MINIMAL_PASSWORD_LIFE_ID);
 
         long passwordMinLifeValueInMillis = TimeUnit.DAYS.toMillis(passwordMinLifeValue);
+
 
         if(passwordMinLifeValueInMillis<=timeElapsed){
             return null;
