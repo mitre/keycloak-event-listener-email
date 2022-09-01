@@ -38,7 +38,7 @@ public class PasswordMinTimePolicyTest{
     
 
     @Test
-    void policyExistTest() throws IOException{
+    void policyShouldExist() throws IOException{
        //This test assesses if password policy exists
         try {
             //If not successful in setting password policy, it is a failure
@@ -52,7 +52,7 @@ public class PasswordMinTimePolicyTest{
 
     //Work in progress: change user's credential's created date
     @Test
-    void policyPassTest() throws IOException{
+    void shouldPassPolicyCompliantPassword() throws IOException{
        //This test assesses if password policy passes a password when password complies with policy
         try {
             //This password meets password policy, update should be successful
@@ -68,10 +68,10 @@ public class PasswordMinTimePolicyTest{
 
 
     @Test
-    void policyFailTest() throws IOException{
+    void shouldFailPolicyNotCompliantPassword() throws IOException{
         //This test assesses if password policy fails a password when password does not comply with policy
         try {
-            //This should fail becuase resetting password too soon.
+            //This should fail becuase of resetting password too soon.
             resetPassword("admin", "admin", "master", "pass1Word");             
             // If an exception does not occur, the password policy is not enforced correctly.
             fail("An exception should occur. Password does not meet password policy");

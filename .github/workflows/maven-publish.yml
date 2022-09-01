@@ -17,7 +17,12 @@ jobs:
         with:
           java-version: 1.8
           
-      - name: Publish package
-        run: mvn --batch-mode deploy -Dmaven.test.skip
+      - name: Publish package (password policy)
+        run: mvn --file 'PasswordMinTimePolicy/pom.xml' --batch-mode deploy -Dmaven.test.skip
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Publish package (event listener)
+        run: mvn --file 'custom-event-listener/pom.xml' --batch-mode deploy -Dmaven.test.skip
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
