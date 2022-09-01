@@ -27,13 +27,14 @@ jobs:
 
       - name: Pull Keycloak with Docker
         run: |
-          docker pull quay.io/keycloak/keycloak
-          docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak build
+          docker run -d --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak start-dev
       - name: Docker processes
         run: |
-          dockerContainerID=`docker ps -a -q`
-          docker cp PasswordMinTimePolicy/target/*.jar $dockerContainerID:opt/keycloak/providers
-          docker restart $dockerContainerID
+          docker cp PasswordMinTimePolicy/target/*.jar keycloak:opt/keycloak/providers
+          docker restart keycloak
+      - name: wait 20 seconds for docker to finish
+        run: |
+          sleep 20
       
       - name: Build Maven project (with tests)
         run: |
