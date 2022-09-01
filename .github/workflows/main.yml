@@ -28,7 +28,7 @@ jobs:
       - name: Pull Keycloak with Docker
         run: |
           docker pull quay.io/keycloak/keycloak
-          docker run quay.io/keycloak/keycloak build
+          docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak build
       - name: Docker processes
         run: |
           dockerContainerID=`docker ps -a -q`
