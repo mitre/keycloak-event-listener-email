@@ -21,10 +21,24 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Build Maven project
+      - name: Build Maven project (skip tests)
         run: |
-          mvn -B package --file 'PasswordMinTimePolicy/pom.xml' -Dmaven.test.skip
+          mvn clean install --file 'PasswordMinTimePolicy/pom.xml' -Dmaven.test.skip
+
+      - name: Pull Keycloak with Docker
+        run: |
+          docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak start-dev
+      - name: Docker processes
+        run: |
+          dockerContainerID=`docker ps -q`
+          docker cp PasswordMinTimePolicy/target/*.jar dockerContainerID:opt/keycloak/providers
+          docker restart dockerContainerID
+      
+      - name: Build Maven project (with tests)
+        run: |
+          mvn clean install --file 'PasswordMinTimePolicy/pom.xml'
           mkdir staging && cp PasswordMinTimePolicy/target/*.jar staging
+
       - name: Set up a cache for Maven
         uses: actions/cache@v2
         with:
