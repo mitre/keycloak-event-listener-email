@@ -32,8 +32,8 @@ jobs:
       - name: Docker processes
         run: |
           dockerContainerID=`docker ps -a -q`
-          docker cp PasswordMinTimePolicy/target/*.jar dockerContainerID:opt/keycloak/providers
-          docker restart dockerContainerID
+          docker cp PasswordMinTimePolicy/target/*.jar $dockerContainerID:opt/keycloak/providers
+          docker restart $dockerContainerID
       
       - name: Build Maven project (with tests)
         run: |
