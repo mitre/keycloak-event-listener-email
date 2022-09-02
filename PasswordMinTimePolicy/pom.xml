@@ -10,6 +10,14 @@
     <name>Keycloak - Custom Password Policy</name>
     <description>This password policy will enforce minimum time before allowing reset.</description>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/mitre/keycloak-custom-policies</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
