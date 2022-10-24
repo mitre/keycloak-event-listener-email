@@ -56,7 +56,7 @@ Follow this [link](custom-event-listener/README.md) for more details.
 
 ## Instructions to download and use:
 
-The current .jar file can be downloaded directly from [here](./assets/password-min-time-policy-0.0.1-20220902.182228-2.jar)
+The current .jar file can be downloaded directly from [here](./assets/password-min-time-policy-current.jar)
 ```xml
 <dependency>
   <groupId>org.keycloak.policy</groupId>
