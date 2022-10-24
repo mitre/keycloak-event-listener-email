@@ -53,3 +53,17 @@ All catched emails can be visited at [http://localhost:8025/](http://localhost:8
 Lets build a custom event listener, that sends an email to an admin on every new registration.
 
 Follow this [link](custom-event-listener/README.md) for more details.
+
+## Instructions to download and use:
+
+The current .jar file can be downloaded directly from [here](./assets/password-min-time-policy-0.0.1-20220902.182228-2.jar)
+```xml
+<dependency>
+  <groupId>org.keycloak.policy</groupId>
+  <artifactId>password-min-time-policy</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+```bash
+mvn install
+```
