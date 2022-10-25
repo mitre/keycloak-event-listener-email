@@ -2,13 +2,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>it.aboutbits</groupId>
+    <groupId>com.github.mitre</groupId>
     <artifactId>custom-event-listener</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Keycloak - Custom Event Listener</name>
     <description>This event listener will notify an admin about new registrations via Email.</description>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+        <name>MITRE SAF Team</name>
+        <email>saf@groups.mitre.org</email>
+        <organization>MITRE</organization>
+        <organizationUrl>https://www.mitre.org/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>git@github.com:mitre/keycloak-custom-policies.git
+        <connection>scm:git:git@github.com:mitre/keycloak-custom-policies.git</connection>
+        <developerConnection>scm:git:https://github.com/mitre/keycloak-custom-policies.git</developerConnection>
+        <url>https://github.com/mitre/keycloak-custom-policies/tree/main</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
