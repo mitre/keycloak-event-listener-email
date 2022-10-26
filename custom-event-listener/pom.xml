@@ -9,6 +9,7 @@
 
     <name>Keycloak - Custom Event Listener</name>
     <description>This event listener will notify an admin about new registrations via Email.</description>
+    <url>https://github.com/mitre/keycloak-custom-policies</url>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
