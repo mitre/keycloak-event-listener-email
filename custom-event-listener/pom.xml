@@ -24,7 +24,7 @@
         </developer>
     </developers>
 
-    <scm>git@github.com:mitre/keycloak-custom-policies.git
+    <scm>
         <connection>scm:git:git@github.com:mitre/keycloak-custom-policies.git</connection>
         <developerConnection>scm:git:https://github.com/mitre/keycloak-custom-policies.git</developerConnection>
         <url>https://github.com/mitre/keycloak-custom-policies/tree/main</url>
