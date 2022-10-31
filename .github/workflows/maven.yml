@@ -32,7 +32,7 @@ jobs:
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Deploy with Maven
-      run: mvn -B clean deploy -Pci-cd
+      run: mvn -B clean deploy -Pci-cd -Dmaven.test.skip
       working-directory: ./keycloak-password-min-time-policy
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
