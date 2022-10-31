@@ -1,10 +1,10 @@
 name: Publish package to GitHub Packages
 on:
   push:
-    branches: [main]
+    branches: []
 #for testing, remove before merging.
   pull_request:
-    branches: [main]
+    branches: []
 # change action to release before merging
 # on:
 #   release:

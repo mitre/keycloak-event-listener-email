@@ -6,13 +6,13 @@ name: Java CI with Maven
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./custom-event-listener
     steps:
     - uses: actions/checkout@v2
     - name: Set up Maven Central Repository
@@ -26,6 +26,14 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
     - name: Deploy with Maven
       run: mvn -B clean deploy -Pci-cd
+      working-directory: ./keycloak-admin-notification-custom-event-listener
+      env:
+        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+    - name: Deploy with Maven
+      run: mvn -B clean deploy -Pci-cd
+      working-directory: ./keycloak-password-min-time-policy
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
