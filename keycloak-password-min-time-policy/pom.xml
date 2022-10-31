@@ -9,7 +9,13 @@
 
     <name>Keycloak Password Minimum Time Policy</name>
     <description>This password policy will enforce minimum time before allowing reset.</description>
-
+    <url>https://github.com/mitre/keycloak-custom-policies</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
     <distributionManagement>
         <repository>
             <id>ossrh</id>
