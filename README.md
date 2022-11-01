@@ -1,37 +1,13 @@
-# Keycloak Extensions
+# Keycloak Custom Modules for SRG hardening
 
-This repository includes custom policies to exetend Keycloak's functionalities. 
+This repository includes custom policies to exetend Keycloak's functionalities to support STIG-ready content for securing Keycloak against the [AAA SRG](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_AAA_Services_V1R2_SRG.zip).
 
-## Table of content
+Content available on the Maven Central Repository.
 
-- [Setup](#setup)
-- [Custom Event Listener](#custom-event-listener)
-- [Custom Password Policy](#custom-password-policy)
-
-## Setup
-- For development and testing, set up Keycloak locally with: `docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak start-dev
-`
-
+See the subdirectory READMEs for info on using the modules/inserting them into your Keycloak installation
 
 ## Custom Event Listener
 - Emails an admin on User and Admin Events.
 
 ## Custom Password Policy
 - Enforces 24 hours as the minimum lifetime for passwords.
-Lets build a custom event listener, that sends an email to an admin on every new registration.
-
-Follow this [link](custom-event-listener/README.md) for more details.
-
-## Instructions to download and use:
-
-The current .jar file can be downloaded directly from [here](./assets/password-min-time-policy-current.jar)
-```xml
-<dependency>
-  <groupId>org.keycloak.policy</groupId>
-  <artifactId>password-min-time-policy</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-</dependency>
-```
-```bash
-mvn install
-```
